@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .logo img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 0;
+        }
+        
+        .buttons {
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff8f00;
+            border: none;
+            border-radius: 5px;
+            margin: 0 10px;
+            cursor: pointer;
+            color: #fff;
+        }
+        
+        .login-container, .dashboard-container, .rating-container, .evaluation-details, .customer-numbers1, .confirmation-page, .barcode-page {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .rating-container {
+            background-color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .rating-container .yellow-box {
+            background-color: #ff8f00;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        .rating-container .settings-icon,
+        .rating-container .notifications-icon,
+        .rating-container .profile-icon,
+        .rating-container .chat-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            filter: saturate(8) brightness(3);
+        }
+        
+        .rating-container .profile-icon {
+            position: absolute;
+            top: -20px;
+            left: 10px;
+        }
+        
+        .rating-container .settings-icon {
+            position: absolute;
+            top: -20px;
+            right: 10px;
+        }
+        
+        .rating-container .notifications-icon {
+            position: absolute;
+            top: -20px;
+            right: 40px;
+        }
+
+        .rating-container .chat-icon {
+            position: absolute;
+            top: -20px;
+            right: 70px;
+            cursor: pointer;
+        }
+        
+        .rating-container .stars img {
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+            filter: saturate(8) brightness(3);
+        }
+        
+        .rating-container p {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #333;
+        }
+        
+        .customer-numbers div, .customer-numbers1 div {
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: block;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            color: #333;
+        }
+        
+        .elements {
+            margin-top: 20px;
+        }
+        
+        .elements img {
+            width: 30px;
+            height: 30px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .evaluation-details {
+            display: none;
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .evaluation-details p {
+            margin-top: 10px;
+            color: #333;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #eee;
+            margin-top: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-inner {
+            height: 100%;
+            width: 0;
+            background-color: #ff8f00;
+        }
+
+        .back-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff8f00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        .product-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: inline-block;
+            width: 200px;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-box img {
+            width: 100px;
+            height: 100px;
+            display: block;
+            margin: auto;
+            border-radius: 50%;
+        }
+
+        .product-box .product-details {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .product-box .product-details h3 {
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .product-box .product-details p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .product-box .product-details .icons {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .product-box .product-details .icons img {
+            width: 15px; /* Decreased size */
+            height: 15px; /* Decreased size */
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .confirmation-page {
+            text-align: center;
+            display: none;
+        }
+
+        .confirmation-page img {
+            width: 200px;
+            height: 200px;
+            margin-top: 20px;
+            border-radius: 50%;
+        }
+
+        .confirmation-page p {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .confirmation-page button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff8f00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        .barcode-page {
+            text-align: center;
+            display: none;
+        }
+
+        .barcode-page img {
+            width: 200px;
+            height: 200px;
+            margin-top: 20px;
+            border-radius: 50%;
+        }
+
+        .barcode-page p {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .barcode-page button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff8f00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            color: #fff;
+        }
+      background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Styles for chat interface */
+        .chat-interface {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            border-top: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .chat-messages {
+            height: 200px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+
+        .chat-input {
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-input input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .chat-input button {
+            padding: 8px 15px;
+            background-color: #ff8f00;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://i.imgur.com/tG0B2Vt.png" alt="Flash Logo">
+            <h1>Flash</h1>
+        </div>
+        <div class="buttons">
+            <button onclick="showLogin()">Log In</button>
+            <button>Sign Up</button>
+        </div>
+    </div>
+
+    <div class="login-container" id="login-container">
+        <div class="logo">
+            <img src="https://i.imgur.com/tG0B2Vt.png" alt="Flash Logo">
+        </div>
+        <form onsubmit="showRating(); return false;">
+            <input type="email" placeholder="Email Address" name="email" required>
+            <input type="password" placeholder="Password" name="password" required>
+            <button type="submit">Continue</button>
+        </form>
+    </div>
+
+    <div class="rating-container" id="rating-container">
+        <img src="https://cdn.icon-icons.com/icons2/1993/PNG/96/account_avatar_face_man_people_profile_user_icon_123197.png" alt="Profile" class="profile-icon">
+        <span style="position: absolute; top: -20px; left: 40px;">Assam Ashraf</span>
+        <div class="yellow-box">
+            <img src="https://cdn.icon-icons.com/icons2/2761/PNG/512/settings_icon_176440.png" alt="Settings" class="settings-icon">
+            <img src="https://cdn.icon-icons.com/icons2/2440/PNG/96/notification_bell_icon_148515.png" alt="Notifications" class="notifications-icon">
+            <img src="https://cdn.icon-icons.com/icons2/858/PNG/96/chat_icon-icons.com_67748.png" alt="Chat" class="chat-icon" onclick="openChat()">
+            <p style="color: black;">Daily Evaluation</p>
+           
+            <p style="font-size: 24px;">★★★☆☆</p>
+            <p style="font-size: 18px;">It doesn’t matter how slowly you go as long as you don’t stop</p>
+        </div>
+        <div class="elements">
+            <img src="https://cdn.icon-icons.com/icons2/1579/PNG/96/3586361-location-map-navigation-pointer_107948.png" alt="Map Icon" onclick="showEvaluationDetails()">
+            <span>Map</span>
+            <img src="https://cdn.icon-icons.com/icons2/1391/PNG/96/data_96285.png" alt="Data Icon" onclick="showEvaluationDetails()">
+            <span>Data</span>
+            <img src="https://cdn.icon-icons.com/icons2/3403/PNG/96/evaluation_chart_icon_215783.png" alt="Evaluation Icon" onclick="showEvaluationDetails()">
+            <span>Evaluation</span>
+            <img src="https://cdn.icon-icons.com/icons2/1908/PNG/96/4552604-globe-internet-sphere-web_121385.png" alt="Internet Icon" onclick="showEvaluationDetails()">
+            <span>Internet</span>
+            <img src="https://cdn.icon-icons.com/icons2/37/PNG/96/purchaseorderapplication_compra_orde_4474.png" alt="Order Icon" onclick="showEvaluationDetails()">
+            <span>Order</span>
+            <img src="https://cdn.icon-icons.com/icons2/1660/PNG/96/3844472-hamburger-list-menu-more-navigation_110338.png" alt="More Icon" onclick="showEvaluationDetails()">
+            <span>More</span>
+        </div>
+        <div class="customer-numbers">
+            <div onclick="showCustomerNumbers1()">Customer Number (1155)</div>
+            <div onclick="showCustomerNumbers1()">Customer Number (1186)</div>
+            <div onclick="showCustomerNumbers1()">Customer Number (2367)</div>
+        </div>
+    </div>
+
+    <div class="customer-numbers1" id="customer-numbers1">
+        <div class="product-box">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbfcJglrpxofcUs9hyT8L7J6rS4k5PXwS7I59gmKlzUQ" alt="Milk" class="product-image">
+            <div class="product-details">
+                <h3>Juhayna milk liter</h3>
+                <p>Barcode: 223000350065</p>
+                <p>Quantity (2)</p>
+                <p>Canned food section</p>
+            </div>
+            <div class="icons">
+                <img src="https://cdn.icon-icons.com/icons2/1206/PNG/96/1491254409-truecheckacceptapprove_82933.png" alt="Check Icon" onclick="toggleCheck(this)">
+                <img src="https://cdn.icon-icons.com/icons2/1206/PNG/96/1491254392-falsecrossrejectdecline_82951.png" alt="Cross Icon" onclick="toggleCross(this)">
+            </div>
+        </div>
+        <div class="product-box">
+            <img src="https://gomla-eg.com/image/cache/catalog/products/291.1.png-550x550.png.webp" alt="Spiro Spats" class="product-image">
+            <div class="product-details">
+                <h3>Spiro Spats 330 ml</h3>
+                <p>Barcode: 223000350065</p>
+                <p>Quantity (5)</p>
+                <p>Canned food section</p>
+            </div>
+            <div class="icons">
+                <img src="https://cdn.icon-icons.com/icons2/1206/PNG/96/1491254409-truecheckacceptapprove_82933.png" alt="Check Icon" onclick="toggleCheck(this)">
+                <img src="https://cdn.icon-icons.com/icons2/1206/PNG/96/1491254392-falsecrossrejectdecline_82951.png" alt="Cross Icon" onclick="toggleCross(this)">
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <button onclick="showBarcodePage()">Next</button>
+        </div>
+    </div>
+
+    <div class="evaluation-details" id="evaluation-details">
+        <p>Speed of preparing the order</p>
+        <div class="progress-bar">
+            <div class="progress-bar-inner" style="width: 50%; background-color: yellow;"></div>
+        </div>
+        <p>Number of applications prepared</p>
+        <div class="progress-bar">
+            <div class="progress-bar-inner" style="width: 70%; background-color: green;"></div>
+        </div>
+        <p>Number of errors</p>
+        <div class="progress-bar">
+            <div class="progress-bar-inner" style="width: 20%; background-color: blue;"></div>
+        </div>
+        <p>Arrange items in the shopping cart</p>
+        <div class="progress-bar">
+            <div class="progress-bar-inner" style="width: 40%; background-color: yellow;"></div>
+        </div>
+        <button onclick="showRating()" class="back-button">Back</button>
+    </div>
+
+    <div class="barcode-page" id="barcode-page">
+        <img src="https://png.pngtree.com/png-vector/20210331/ourlarge/pngtree-square-electronic-label-barcode-png-image_3176689.jpg" alt="Barcode Image">
+        <p>Number of products 10</p>
+        <p>All items are available</p>
+        <button onclick="showConfirmationPage()">Confirm</button>
+    </div>
+
+    <div class="confirmation-page" id="confirmation-page">
+        <img src="https://i.pinimg.com/564x/48/1c/45/481c45a0f12013908fa484a574ac62f6.jpg" alt="Preparation completed">
+        <p>Preparation has been completed</p>
+        <p>Rating increased by 10%</p>
+        <button onclick="showRating()">Go to the home page</button>
+    </div>
+
+    <!-- Chat Interface -->
+    <div class="chat-interface" id="chat-interface" style="display: none;">
+        <div class="chat-header">
+            <h2>Customer Support</h2>
+            <button onclick="closeChatAndShowRating()">Close</button>           
+        </div>
+        <div class="chat-messages">
+            <!-- Chat messages will be displayed here -->
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+          <button 
+        </div>
+    </div>
+    <script>
+         function showLogin() {
+        document.querySelector('.container').style.display = 'none';
+        document.getElementById('login-container').style.display = 'block';
+    }
+
+    function showRating() {
+        document.getElementById('rating-container').style.display = 'block';
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('evaluation-details').style.display = 'none';
+        document.getElementById('customer-numbers1').style.display = 'none';
+        document.getElementById('confirmation-page').style.display = 'none';
+        document.getElementById('barcode-page').style.display = 'none';
+    }
+
+    function showEvaluationDetails() {
+        document.getElementById('rating-container').style.display = 'none';
+        document.getElementById('evaluation-details').style.display = 'block';
+        document.getElementById('customer-numbers1').style.display = 'none';
+        document.getElementById('confirmation-page').style.display = 'none';
+        document.getElementById('barcode-page').style.display = 'none';
+    }
+
+    function showCustomerNumbers1() {
+        document.getElementById('customer-numbers1').style.display = 'block';
+        document.getElementById('rating-container').style.display = 'none';
+        document.getElementById('evaluation-details').style.display = 'none';
+        document.getElementById('confirmation-page').style.display = 'none';
+        document.getElementById('barcode-page').style.display = 'none';
+    }
+
+    function showBarcodePage() {
+        document.getElementById('customer-numbers1').style.display = 'none';
+        document.getElementById('rating-container').style.display = 'none';
+        document.getElementById('evaluation-details').style.display = 'none';
+        document.getElementById('confirmation-page').style.display = 'none';
+        document.getElementById('barcode-page').style.display = 'block';
+    }
+
+    function showConfirmationPage() {
+        document.getElementById('customer-numbers1').style.display = 'none';
+        document.getElementById('rating-container').style.display = 'none';
+        document.getElementById('evaluation-details').style.display = 'none';
+        document.getElementById('confirmation-page').style.display = 'block';
+        document.getElementById('barcode-page').style.display = 'none';
+    }
+
+    function openChat() {
+        // Hide evaluation details
+        document.getElementById('evaluation-details').style.display = 'none';
+        // Show chat interface
+        document.getElementById('chat-interface').style.display = 'block';
+        // Hide rating container
+        document.getElementById('rating-container').style.display = 'none';
+    }
+
+    function closeChat() {
+        document.getElementById('chat-interface').style.display = 'none';
+    }
+
+    function sendMessage() {
+        // Functionality to send a message
+    }
+
+    function toggleCheck(element) {
+        element.src = 'https://cdn.icon-icons.com/icons2/1206/PNG/96/1491254409-truecheckacceptapprove_82933.png';
+    }
+
+    function toggleCross(element) {
+        element.src = 'https://cdn.icon-icons.com/icons2/1206/PNG/96/1491254392-falsecrossrejectdecline_82951.png';
+    }
+       // Function to close chat interface and show rating container
+    function closeChatAndShowRating() {
+        // Hide chat interface
+        document.getElementById('chat-interface').style.display = 'none';
+        // Show rating container
+        document.getElementById('rating-container').style.display = 'block';
+    }
+    </script>
+</body>
+</html
